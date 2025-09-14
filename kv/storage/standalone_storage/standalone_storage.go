@@ -61,6 +61,7 @@ func (s *StandAloneStorage) Write(ctx *kvrpcpb.Context, batch []storage.Modify) 
 	var err error
 	for _, m := range batch {
 		key, val, cf := m.Key(), m.Value(), m.Cf()
+		//判断是否是put操作
 		if _, ok := m.Data.(storage.Put); ok {
 			err = engine_util.PutCF(s.engine.Kv, cf, key, val)
 		} else {
